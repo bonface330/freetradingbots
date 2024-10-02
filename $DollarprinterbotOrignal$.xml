@@ -9,6 +9,63 @@
     <variable type="" id="wBM,|Pk5nM15cpK5R3Kn" islocal="false" iscloud="false">text2</variable>
     <variable type="" id="9R]TXvv|/7gDPe[p-gDZ" islocal="false" iscloud="false">text3</variable>
   </variables>
+<block type="controls_if" id="stop_loss_block">
+  <value name="IF0">
+    <block type="logic_compare">
+      <field name="OP">GTE</field>
+      <value name="A">
+        <block type="variables_get">
+          <field name="VAR">Loss</field>
+        </block>
+      </value>
+      <value name="B">
+        <block type="math_number">
+          <field name="NUM">1000</field>
+        </block>
+      </value>
+    </block>
+  </value>
+  <statement name="DO0">
+    <block type="bot_stop"></block> <!-- Stops the bot -->
+  </statement>
+</block>
+<block type="controls_if" id="target_profit_block">
+  <value name="IF0">
+    <block type="logic_compare">
+      <field name="OP">GTE</field>
+      <value name="A">
+        <block type="total_profit"></block>
+      </value>
+      <value name="B">
+        <block type="variables_get">
+          <field name="VAR">Target Profit</field>
+        </block>
+      </value>
+    </block>
+  </value>
+  <statement name="DO0">
+    <block type="bot_stop"></block> <!-- Stops the bot when profit is reached -->
+  </statement>
+</block>
+<block type="math_change" id="martingale_block">
+  <field name="VAR">Stake</field>
+  <value name="DELTA">
+    <block type="math_arithmetic">
+      <field name="OP">MULTIPLY</field>
+      <value name="A">
+        <block type="variables_get">
+          <field name="VAR">Stake</field>
+        </block>
+      </value>
+      <value name="B">
+        <block type="math_number">
+          <field name="NUM">2</field>
+        </block>
+      </value>
+    </block>
+  </value>
+</block>
+
   <block type="trade_definition" id="=l`M:iIyHzz`#=5#|XK6" x="0" y="0">
     <statement name="TRADE_OPTIONS">
       <block type="trade_definition_market" id="gIVdlFG%DasAatr9N7WZ" deletable="false" movable="false">
